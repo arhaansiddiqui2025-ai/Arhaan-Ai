@@ -87,7 +87,9 @@ if "messages" not in st.session_state:
 
 if "mode" not in st.session_state:
     st.session_state.mode="Chat"
-
+client = OpenAI(
+    api_key=st.secrets["OPENAI_API_KEY"]
+)
 # =========================
 # SIDEBAR
 # =========================
