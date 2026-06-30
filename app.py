@@ -159,9 +159,8 @@ if prompt:
 
         placeholder.markdown("⏳ Thinking...")
 
-        # AI response will be added in Part 2
-    
-try:
+        # AI response will be added in Part 2    
+    try:
     response_text = ""
 
     stream = client.chat.completions.create(
