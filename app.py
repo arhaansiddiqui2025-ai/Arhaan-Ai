@@ -186,7 +186,7 @@ except Exception as e:
     response = f"❌ Error: {e}"
     placeholder.markdown(response)
 
-        placeholder.markdown(response)
+        
 
     st.session_state.messages.append(
         {
