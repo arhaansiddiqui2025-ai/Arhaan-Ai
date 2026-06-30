@@ -1,53 +1,52 @@
 import streamlit as st
 
+# ----------------------------
+# Page Config
+# ----------------------------
 st.set_page_config(page_title="Arhaanio", page_icon="🤖")
 
 st.title("🤖 Arhaanio")
-st.caption("Developed by Arhaan")
+st.write("Your AI Chatbot Assistant")
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
+# ----------------------------
+# Session State (Chat Memory)
+# ----------------------------
 if "messages" not in st.session_state:
-    st.session_state.messages=[]
+    st.session_state.messages = []
 
-with st.sidebar:
-    st.header("Files")
-    uploaded = st.file_uploader("Upload files", accept_multiple_files=True)
-    if uploaded:
-        for f in uploaded:
-            st.write("📄", f.name)
-    if st.button("Clear Chat"):
-        st.session_state.messages=[]
+# Display chat history
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
-for m in st.session_state.messages:
-    with st.chat_message(m["role"]):
-        st.markdown(m["content"])
+# ----------------------------
+# User Input
+# ----------------------------
+user_input = st.chat_input("Type your message...")
 
-prompt = st.chat_input("Ask anything...")
+if user_input:
+    # Store user message
+    st.session_state.messages.append({"role": "user", "content": user_input})
 
-if prompt:
-    st.session_state.messages.append({"role":"user","content":prompt})
     with st.chat_message("user"):
-        st.markdown(prompt)
-    with st.chat_message("assistant"):
-        ph = st.empty()
-        reply=""
-        try:
-            stream = client.chat.completions.create(
-                model="gpt-5",
-                messages=st.session_state.messages,
-                stream=True,
-            )
-            for chunk in stream:
-                delta = chunk.choices[0].delta.content
-                if delta:
-                    reply += delta
-                    ph.markdown(reply+"▌")
-            ph.markdown(reply)
-        except Exception as e:
-            reply=f"Error: {e}"
-            ph.markdown(reply)
-    st.session_state.messages.append({"role":"assistant","content":reply})
+        st.markdown(user_input)
 
-st.divider()
-st.markdown("<div style='text-align:center;color:gray'>Developed by Arhaan</div>", unsafe_allow_html=True)
+    # ----------------------------
+    # BOT RESPONSE (Placeholder)
+    # ----------------------------
+    def get_bot_response(prompt: str):
+        return f"Arhaanio: I received -> {prompt} 🤖"
+
+    response = get_bot_response(user_input)
+
+    # Store bot message
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
+    with st.chat_message("assistant"):
+        st.markdown(response)
+
+# ----------------------------
+# Footer
+# ----------------------------
+st.markdown("---")
+st.markdown("**Developed By Arhaan** 🚀")
