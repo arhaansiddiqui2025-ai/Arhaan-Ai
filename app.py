@@ -165,7 +165,7 @@ if prompt:
 
         # AI response will be added in Part 2
     
-tr
+try:
     response_text = ""
 
     stream = client.chat.completions.create(
