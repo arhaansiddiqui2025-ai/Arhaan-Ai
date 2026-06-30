@@ -1,3 +1,5 @@
+from openai import OpenAI
+import time
 import streamlit as st
 import os
 from datetime import datetime
