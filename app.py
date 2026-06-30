@@ -162,7 +162,22 @@ if prompt:
         placeholder.markdown("⏳ Thinking...")
 
         # AI response will be added in Part 2
-        response="AI response loading..."
+        response_text = ""
+
+stream = client.chat.completions.create(
+    model="gpt-5",
+    messages=st.session_state.messages,
+    stream=True
+)
+
+for chunk in stream:
+    if chunk.choices[0].delta.content:
+        response_text += chunk.choices[0].delta.content
+        placeholder.markdown(response_text + "▌")
+
+placeholder.markdown(response_text)
+
+response = response_text
 
         placeholder.markdown(response)
 
