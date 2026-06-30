@@ -103,10 +103,6 @@ with st.sidebar:
         "Choose Feature",
         [
             "💬 Chat",
-            "📄 PDF Chat",
-            "🖼 Image Generator",
-            "🌐 Internet Search",
-            "🎤 Voice Assistant",
             "📂 File Upload"
         ]
     )
