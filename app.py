@@ -1,4 +1,3 @@
-from openai import OpenAI
 import streamlit as st
 
 st.set_page_config(page_title="Arhaanio", page_icon="🤖")
